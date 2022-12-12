@@ -5,8 +5,11 @@ export interface Todo {
 }
 
 export interface TodoState {
-  todoCount: number;
   todos: Todo[];
-  completed: number;
-  pending: number;
 }
+// export interface TodoState {
+//   todoCount: number;
+//   todos: Todo[];
+//   completed: number;
+//   pending: number;
+// }

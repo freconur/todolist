@@ -3,7 +3,6 @@ import { Todo, TodoState } from "../components/type";
 import { TodoReducer } from "./TodoReducers";
 
 const INITIAL_STATE: TodoState = {
-	todoCount: 0,
 	todos: [
 		{
 			id: "1",
@@ -19,15 +18,20 @@ const INITIAL_STATE: TodoState = {
 			id: "3",
 			completed: false,
 			text: 'practice typescript'
+		},
+		{
+			id: "4",
+			completed: true,
+			text: 'creado proyecto de javascript'
 		}
 	],
-	completed: 0,
-	pending: 0
 }
 
 type TodoContextProps = {
 	todoState: TodoState;
-	toggleTodo: (id:string) => void // void quiere decir que bno regresa nada
+	toggleTodo: (id: string) => void // void quiere decir que bno regresa nada
+	totalTodos: number,
+	todosCompleted: number
 }
 
 interface Props {
@@ -35,20 +39,28 @@ interface Props {
 }
 
 
+
 const TodoContext = createContext<TodoContextProps>({} as TodoContextProps)
 
 function TodoProvider({ children }: Props) {
-
+	
 	const [todoState, dispatch] = useReducer(TodoReducer, INITIAL_STATE)
-
+	
 	const toggleTodo = (id: string) => {
 		dispatch({ type: 'toggleTodo', payload: { id } })
 	}
+	//COUNTER TODOS
+	const todosCompleted = INITIAL_STATE.todos.filter((todo) => !!todo.completed).length
+	const totalTodos =  INITIAL_STATE.todos.length
+	console.log('todosCompleted',todosCompleted)
+//COUNTER TODOS
 
 	return (
 		<TodoContext.Provider value={{
 			todoState,
-			toggleTodo
+			toggleTodo,
+			totalTodos,
+			todosCompleted
 		}}>
 			{children}
 		</TodoContext.Provider>

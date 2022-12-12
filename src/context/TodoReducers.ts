@@ -2,6 +2,7 @@ import { Todo, TodoState } from "../components/type";
 
 type todoAction =
   | { type: "addTodo"; payload: Todo }
+  | { type: "todoCounter"; payload: Todo }
   | { type: "toggleTodo"; payload: { id: string } };
 
 export const TodoReducer = (
